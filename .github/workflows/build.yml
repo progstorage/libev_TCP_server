@@ -35,3 +35,10 @@ jobs:
         ./server &
         sleep 2
         echo "Test message" | nc localhost 5000 || exit 1
+
+    - name: Debug pkg-config
+      run: |
+        pkg-config --modversion libev
+        pkg-config --cflags libev
+        pkg-config --libs libev
+
