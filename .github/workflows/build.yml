@@ -19,17 +19,22 @@ jobs:
     - name: Install dependencies
       run: |
         sudo apt-get update
-        sudo apt-get install -y cmake build-essential pkg-config
+        sudo apt-get install -y cmake build-essential pkg-config wget
+
+    - name: Install libev from source
+      run: |
         wget http://dist.schmorp.de/libev/Attic/libev-4.33.tar.gz
         tar -xzf libev-4.33.tar.gz
         cd libev-4.33
         ./configure
         make
         sudo make install
+        sudo ldconfig  # Обновление кэша библиотек
 
     - name: Set PKG_CONFIG_PATH
       run: |
         export PKG_CONFIG_PATH=/usr/local/lib/pkgconfig:$PKG_CONFIG_PATH
+        echo "PKG_CONFIG_PATH: $PKG_CONFIG_PATH"
         pkg-config --modversion libev
 
     - name: Build project
