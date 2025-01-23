@@ -3,19 +3,9 @@ project(TcpServer)
 
 set(CMAKE_CXX_STANDARD 17)
 
-find_package(PkgConfig REQUIRED)
-pkg_check_modules(LIBEV REQUIRED ev)
-
-include_directories(${LIBEV_INCLUDE_DIRS})
-link_directories(${LIBEV_LIBRARY_DIRS})
-
-add_definitions(${LIBEV_CFLAGS_OTHER})
-
-if(NOT LIBEV_FOUND)
-    message(FATAL_ERROR "libev not found. Please install libev-dev.")
-endif()
+# Указываем путь к библиотекам и заголовкам libev
+include_directories(/usr/local/include)
+link_directories(/usr/local/lib)
 
 add_executable(server server.cpp)
-target_link_libraries(server ${LIBEV_LIBRARIES})
-
-
+target_link_libraries(server ev)
