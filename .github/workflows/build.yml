@@ -40,8 +40,17 @@ jobs:
     - name: Run basic test
       run: |
         cd build
-        ./server &  # Запуск сервера в фоновом режиме
-        SERVER_PID=$!  # Сохранение PID запущенного процесса
-        sleep 2  # Ожидание запуска сервера
-        echo "Test message" | nc localhost 5000  # Отправка сообщения на сервер
-        kill $SERVER_PID  # Завершение процесса сервера
+        ./server &  # Start the server in the background
+        SERVER_PID=$!  # Save the PID of the server process
+        sleep 2  # Wait for the server to start
+        echo "Sending test message to server"
+        echo "Test message" | nc localhost 5000  # Send a test message to the server
+        echo "Stopping server with PID $SERVER_PID"
+        kill $SERVER_PID  # Stop the server process
+        sleep 1  # Small delay to ensure the process stops
+        if ps -p $SERVER_PID > /dev/null; then
+          echo "Server did not terminate. Forcing termination."
+          kill -9 $SERVER_PID  # Force stop if the server did not terminate
+        else
+          echo "Server terminated successfully."
+        fi
