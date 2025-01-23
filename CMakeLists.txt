@@ -9,5 +9,13 @@ pkg_check_modules(LIBEV REQUIRED ev)
 include_directories(${LIBEV_INCLUDE_DIRS})
 link_directories(${LIBEV_LIBRARY_DIRS})
 
+add_definitions(${LIBEV_CFLAGS_OTHER})
+
+if(NOT LIBEV_FOUND)
+    message(FATAL_ERROR "libev not found. Please install libev-dev.")
+endif()
+
 add_executable(server server.cpp)
 target_link_libraries(server ${LIBEV_LIBRARIES})
+
+
