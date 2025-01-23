@@ -1,17 +1,14 @@
 import socket
 
-HOST = "127.0.0.1"
-PORT = 5000
+def main():
+    HOST = '127.0.0.1'
+    PORT = 5000
 
-with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as client_socket:
-    client_socket.connect((HOST, PORT))
-    print("Connected to the server successfully!")
+    with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
+        s.connect((HOST, PORT))
+        s.sendall(b'Test message')
+        data = s.recv(1024)
+        print('Received', repr(data))
 
-    while True:
-        message = input("Enter a message (or 'exit' to quit): ")
-        if message.lower() == "exit":
-            break
-
-        client_socket.sendall(message.encode())
-        data = client_socket.recv(1024)
-        print(f"Server response: {data.decode()}")
+if __name__ == "__main__":
+    main()
