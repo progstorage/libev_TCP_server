@@ -32,6 +32,7 @@ jobs:
 
     - name: Create libev.pc for pkg-config
       run: |
+        sudo mkdir -p /usr/local/lib/pkgconfig
         echo "prefix=/usr/local" | sudo tee /usr/local/lib/pkgconfig/libev.pc
         echo "exec_prefix=\${prefix}" | sudo tee -a /usr/local/lib/pkgconfig/libev.pc
         echo "libdir=\${exec_prefix}/lib" | sudo tee -a /usr/local/lib/pkgconfig/libev.pc
