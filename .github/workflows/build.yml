@@ -19,7 +19,7 @@ jobs:
     - name: Install dependencies
       run: |
         sudo apt-get update
-        sudo apt-get install -y cmake build-essential pkg-config wget
+        sudo apt-get install -y cmake build-essential wget
 
     - name: Install libev from source
       run: |
@@ -30,30 +30,8 @@ jobs:
         make
         sudo make install
 
-    - name: Create libev.pc for pkg-config
-      run: |
-        sudo mkdir -p /usr/local/lib/pkgconfig
-        echo "prefix=/usr/local" | sudo tee /usr/local/lib/pkgconfig/libev.pc
-        echo "exec_prefix=\${prefix}" | sudo tee -a /usr/local/lib/pkgconfig/libev.pc
-        echo "libdir=\${exec_prefix}/lib" | sudo tee -a /usr/local/lib/pkgconfig/libev.pc
-        echo "includedir=\${prefix}/include" | sudo tee -a /usr/local/lib/pkgconfig/libev.pc
-        echo "" | sudo tee -a /usr/local/lib/pkgconfig/libev.pc
-        echo "Name: libev" | sudo tee -a /usr/local/lib/pkgconfig/libev.pc
-        echo "Description: High-performance event loop library" | sudo tee -a /usr/local/lib/pkgconfig/libev.pc
-        echo "Version: 4.33" | sudo tee -a /usr/local/lib/pkgconfig/libev.pc
-        echo "Libs: -L\${libdir} -lev" | sudo tee -a /usr/local/lib/pkgconfig/libev.pc
-        echo "Cflags: -I\${includedir}" | sudo tee -a /usr/local/lib/pkgconfig/libev.pc
-
-    - name: Update ldconfig and PKG_CONFIG_PATH
-      run: |
-        sudo ldconfig
-        export PKG_CONFIG_PATH=/usr/local/lib/pkgconfig:$PKG_CONFIG_PATH
-        echo "PKG_CONFIG_PATH: $PKG_CONFIG_PATH"
-        pkg-config --modversion libev
-
     - name: Build project
       run: |
-        export PKG_CONFIG_PATH=/usr/local/lib/pkgconfig:$PKG_CONFIG_PATH
         mkdir build
         cd build
         cmake ..
