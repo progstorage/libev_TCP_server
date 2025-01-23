@@ -1,0 +1,36 @@
+name: Build and Test TCP Server
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+
+    - name: Install dependencies
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y cmake libev-dev build-essential
+
+    - name: Build project
+      run: |
+        mkdir build
+        cd build
+        cmake ..
+        make
+
+    - name: Run basic test
+      run: |
+        cd build
+        ./server &
+        sleep 2
+        echo "Test message" | nc localhost 5000 || exit 1
