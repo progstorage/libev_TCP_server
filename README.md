@@ -52,7 +52,7 @@ A simple non-blocking TCP server implemented in **C++** using **libev**. The ser
 
 ## Continuous Integration (CI)
 
-This project includes a GitHub Actions workflow (.github/workflows/build.yml) to automate the following tasks:
+This project includes a GitHub Actions workflow (`.github/workflows/build.yml`) to automate the following tasks:
 
 - Build the project using CMake.
-- Test the server functionality with client.py.
+- Test the server functionality with `client.py`.
