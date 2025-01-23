@@ -54,3 +54,5 @@ jobs:
         else
           echo "Server terminated successfully."
         fi
+        echo "Cleaning up any remaining processes"
+        pkill -f server || true  # Kill any remaining server processes
