@@ -48,10 +48,12 @@ jobs:
       run: |
         sudo ldconfig
         export PKG_CONFIG_PATH=/usr/local/lib/pkgconfig:$PKG_CONFIG_PATH
+        echo "PKG_CONFIG_PATH: $PKG_CONFIG_PATH"
         pkg-config --modversion libev
 
     - name: Build project
       run: |
+        export PKG_CONFIG_PATH=/usr/local/lib/pkgconfig:$PKG_CONFIG_PATH
         mkdir build
         cd build
         cmake ..
