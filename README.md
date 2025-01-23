@@ -1,5 +1,7 @@
 # Non-blocking TCP Server
 
+[![Build and Test TCP Server](https://github.com/progstorage/libev_TCP_server/actions/workflows/build.yml/badge.svg)](https://github.com/progstorage/libev_TCP_server/actions/workflows/build.yml)
+
 A simple non-blocking TCP server implemented in **C++** using **libev**. The server listens for client connections on port `5000`, echoes back any received data, and logs the connections (timestamp and received data). A Python-based client is provided to test the server.
 
 ## Features
