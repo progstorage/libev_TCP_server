@@ -22,6 +22,12 @@ jobs:
         sudo apt-get install -y cmake libev-dev build-essential pkg-config
         dpkg -l | grep libev-dev
 
+    - name: Debug pkg-config
+      run: |
+        pkg-config --modversion libev
+        pkg-config --cflags libev
+        pkg-config --libs libev
+
     - name: Build project
       run: |
         mkdir build
@@ -35,10 +41,3 @@ jobs:
         ./server &
         sleep 2
         echo "Test message" | nc localhost 5000 || exit 1
-
-    - name: Debug pkg-config
-      run: |
-        pkg-config --modversion libev
-        pkg-config --cflags libev
-        pkg-config --libs libev
-
