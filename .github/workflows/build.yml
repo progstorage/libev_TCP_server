@@ -40,6 +40,8 @@ jobs:
     - name: Run basic test
       run: |
         cd build
-        ./server &
-        sleep 2
-        echo "Test message" | nc localhost 5000 || exit 1
+        ./server &  # Запуск сервера в фоновом режиме
+        SERVER_PID=$!  # Сохранение PID запущенного процесса
+        sleep 2  # Ожидание запуска сервера
+        echo "Test message" | nc localhost 5000  # Отправка сообщения на сервер
+        kill $SERVER_PID  # Завершение процесса сервера
