@@ -34,18 +34,18 @@ A simple non-blocking TCP server implemented in **C++** using **libev**. The ser
 
 2) Build the project:
    ```bash
-    mkdir build
-    cd build
-    cmake ..
-    make
+   mkdir build
+   cd build
+   cmake ..
+   make
 
 4) Run and test the server:
 - Start the server:
-  ```bash
-  ./server
+   ```bash
+   ./server
 - In a separate terminal, run the Python client:
-  ```bash
-    python3 client.py
+   ```bash
+   python3 client.py
 - The client will send a message to the server and display the echoed response.
 
 ## Continuous Integration (CI)
